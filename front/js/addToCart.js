@@ -1,5 +1,6 @@
 //Add product to Cart
 document.getElementById('addToCart').addEventListener('click', function(e) {
+    e.preventDefault()
 
     //Variables to add
     const $selectedColor = document.getElementById('colors').value

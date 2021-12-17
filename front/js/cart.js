@@ -9,8 +9,6 @@ const retrieveKanapItems= () => fetch('http://localhost:3000/api/products')
 
 //Create the card for each item
 const createCartItem = (kanap, myCart) => {
-    console.log(kanap)
-    console.log(myCart)
 
     //Create Article
     const $cartItemArticle = document.createElement('article')
@@ -59,6 +57,7 @@ const createCartItem = (kanap, myCart) => {
                 $cartItemDivContentSettingsDelete.classList.add('cart__item__content__settings__delete')
 
                     const $cartItemDivContentSettingsDeleteP = document.createElement('p')
+                    $cartItemDivContentSettingsDeleteP.classList.add('deleteItem')
                     $cartItemDivContentSettingsDeleteP.textContent = 'Supprimer'
 
 
@@ -81,19 +80,24 @@ const createCartItem = (kanap, myCart) => {
     return $cartItemArticle
 }
 
-//Function with loop that create each cart item
+//Function with loop that create each cart item and compute total price
 const main = async () => {
     const kanapData = await retrieveKanapItems()
     const cartData = JSON.parse(localStorage.cart) 
 
+    let totalPrice = 0
     for (let i = 0; i < kanapData.length; i++) {
         for (let j = 0; j < cartData.length; j++) {
             if (kanapData[i]._id == cartData[j][0]) {
-                console.log(kanapData[i]._id)
                 $items.appendChild(createCartItem(kanapData[i], cartData[j]))
+                totalPrice += kanapData[i].price * cartData[j][2]
             }
         }    
     }
+
+    document.getElementById('totalPrice').textContent = totalPrice
 }
 
 main()
+
+
