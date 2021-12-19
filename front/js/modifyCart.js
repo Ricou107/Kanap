@@ -1,6 +1,3 @@
-console.log(JSON.parse(localStorage.cart))
-
-
 //Event Listener to modify quantity
 document.getElementById('cart__items').addEventListener('change', function(event) {
     console.log(event.target)
@@ -70,6 +67,8 @@ setTimeout(function() {
     1000);
 
     
+
+
 //Function that compute new Total Price each time the cart change    
     const newTotalPrice = async () => {
         let quantity = document.getElementsByClassName('itemQuantity')
