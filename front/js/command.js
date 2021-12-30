@@ -120,7 +120,7 @@ $commandForm.addEventListener('submit', function(e) {
             const returnData = await send(contact,  productsBoughtId)
             const returnDataId = returnData.orderId
 
-            window.location = `http://127.0.0.1:5500/front/html/confirmation.html?orderId=${returnDataId}`
+            //window.location = `http://127.0.0.1:5500/front/html/confirmation.html?orderId=${returnDataId}`
         }
 
         main()
