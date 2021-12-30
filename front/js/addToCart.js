@@ -6,8 +6,11 @@ document.getElementById('addToCart').addEventListener('click', function(e) {
     const $selectedColor = document.getElementById('colors').value
     const $selectedQuantity = document.getElementById('quantity').value
 
+    //If no color is selected or quantity is null, do nothing
+    if ($selectedColor == '' || $selectedQuantity == 0) {
+        return
     //If the cart is empty, add first product
-    if ( localStorage.length == 0) {
+    } else if ( localStorage.length == 0) {
         let Cart = [[id, 
             $selectedColor, 
             $selectedQuantity]]
