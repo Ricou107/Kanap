@@ -1,20 +1,8 @@
-//API call to get products
-const retrieveKanapItems= () => fetch('http://localhost:3000/api/products')
+//API call to get product
+const retrieveKanapItems= (id) => fetch(`http://localhost:3000/api/products/${id}`)
     .then(res => res.json())
     .catch(err => console.log("Error retrieving kanap data", err))
 
-//Function check the id in url and find which product it corresponds
-const getProductPosition = kanapData => {
-    var str = window.location.href;
-    var url = new URL(str);
-    id = url.searchParams.get("id");
-
-    let i = 0
-    while (kanapData[i]._id != id) {
-        i++
-    }
-    return kanapData[i]
-}
 
 //Add product infos
 const addInfos = product => {
@@ -41,11 +29,19 @@ const addInfos = product => {
 }
 
 const main = async () => {
-    const kanapData = await retrieveKanapItems()
+    var str = window.location.href;
+    var url = new URL(str);
+    id = url.searchParams.get("id");
 
-    product = getProductPosition(kanapData)
+    const kanapData = await retrieveKanapItems(id)
 
-    addInfos(product)
+    if (Object.keys(kanapData).length == 0) {
+        alert('L\'objet que vous recherchez n\'existe pas !');
+        window.location = `http://127.0.0.1:5500/front/html/index.html`
+        return
+    }
+
+    addInfos(kanapData)
 
 }
 

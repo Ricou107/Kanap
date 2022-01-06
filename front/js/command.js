@@ -74,11 +74,25 @@ const checkUserCityInput = () => {
     return isUserCityValid
 }
 
+const checkEmailInput = () => {
+    const isUserEmailValid = isEmailValid($userEmailInput.value)
 
+    if (isUserEmailValid) {
+        $userEmailErrorMsg.textContent = ''
+    } else {
+        $userEmailErrorMsg.textContent = 'Veuillez entrer une adresse email valide'
+    }
+
+    return isUserEmailValid
+}
+
+const isEmailValid = (value) => {
+    return /^\S+@\S+\.\S+$/.test(value)
+}
 
 
 //Check if all inputs are valid
-const isFormValid = () => checkUserFirstNameInput() && checkUserLastNameInput() && checkUserAddressInput() && checkUserCityInput()
+const isFormValid = () => checkUserFirstNameInput() && checkUserLastNameInput() && checkUserAddressInput() && checkUserCityInput() && checkEmailInput()
 
 //Create Object contact
 const createObjContact = () => {
@@ -121,6 +135,7 @@ $commandForm.addEventListener('submit', function(e) {
             const returnDataId = returnData.orderId
 
             if (productsBoughtId.length != 0) {
+                window.localStorage.removeItem('cart');
                 window.location = `http://127.0.0.1:5500/front/html/confirmation.html?orderId=${returnDataId}`
             }
         }
